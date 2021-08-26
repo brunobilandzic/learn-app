@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.DataLayer.Migrations
 {
     [DbContext(typeof(LearnAppDbContext))]
-    [Migration("20210826135259_testing1")]
+    [Migration("20210826145202_testing1")]
     partial class testing1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,6 +78,7 @@ namespace API.DataLayer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("CourseId");

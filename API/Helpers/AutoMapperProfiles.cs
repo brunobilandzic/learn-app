@@ -1,4 +1,5 @@
 using API.DataLayer.Entities.Identity;
+using API.DataLayer.Entities.Learning;
 using API.Services.DTOs;
 using AutoMapper;
 
@@ -9,6 +10,8 @@ namespace API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<RegisterDto, AppUser>();
+            CreateMap<Course, CourseDto>();
+            CreateMap<CourseDto, Course>();
         }
     }
 }

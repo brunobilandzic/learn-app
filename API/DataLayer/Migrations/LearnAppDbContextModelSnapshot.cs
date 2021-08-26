@@ -76,6 +76,7 @@ namespace API.DataLayer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("CourseId");

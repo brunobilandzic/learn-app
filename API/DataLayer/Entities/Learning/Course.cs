@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using API.DataLayer.Entities.StudentRelationships;
 
 namespace API.DataLayer.Entities.Learning
@@ -7,6 +8,7 @@ namespace API.DataLayer.Entities.Learning
     {
         public int CourseId { get; set; }
 
+        [Required]
         public string Title { get; set; }
 
         public ICollection<Lecture> Lectures { get; set; }

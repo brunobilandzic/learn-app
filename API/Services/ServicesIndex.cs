@@ -1,4 +1,5 @@
 using API.DataAccess.UnitOfWork;
+using API.Services.Learning;
 using API.Services.Registration;
 using API.Services.Token;
 using AutoMapper;
@@ -25,5 +26,7 @@ namespace API.Services
 
         public ITokenService Token => new TokenService(_config, _unitOfWork.UserRepository);
         public IRegistrationService Registration => new RegistrationService(_unitOfWork.UserRepository, _mapper);
+
+        public ILearningService LearningService => new LearningService(_unitOfWork, _mapper);
     }
 }
