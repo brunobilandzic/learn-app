@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.DataAccess.Queries;
 using API.DataLayer.EfCode.DbSetup;
 using API.DataLayer.Entities.Learning;
 using API.Services.DTOs;
@@ -13,7 +14,7 @@ namespace API.DataAccess.Repositories.Learning
     {
         private readonly LearnAppDbContext _context;
         private readonly IMapper _mapper;
-
+        private readonly IGenericQueries<Course> _queries;
         public CoursesRepository(
             LearnAppDbContext context,
             IMapper mapper
@@ -21,6 +22,7 @@ namespace API.DataAccess.Repositories.Learning
         {
             _context = context;
             _mapper = mapper;
+            _queries = new GenericQueries<Course>(_context);
         }
 
         public async Task<CourseDto> AddNewCourse(CourseDto courseDto)
@@ -35,9 +37,7 @@ namespace API.DataAccess.Repositories.Learning
         }
         public async Task<IEnumerable<CourseDto>> GetCourses()
         {
-            return await _context.Courses
-                .ProjectTo<CourseDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+            return await _queries.GetAll<CourseDto>(_mapper.ConfigurationProvider);
         }
     
     }

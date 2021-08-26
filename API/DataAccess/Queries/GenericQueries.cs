@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DataLayer.EfCode.DbSetup;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.DataAccess.Queries
@@ -21,9 +23,10 @@ namespace API.DataAccess.Queries
                 .FindAsync(id);
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<TDto>> GetAll<TDto>(IConfigurationProvider configurationProvider)
         {
             return await _context.Set<T>()
+                .ProjectTo<TDto>(configurationProvider)
                 .ToListAsync();
         }
 
