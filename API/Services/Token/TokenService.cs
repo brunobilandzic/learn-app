@@ -10,7 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using API.Errors;
 using System.Net;
 using API.DataAccess.Repositories.User;
-using API.Services.DTOs;
+using API.DTOs;
 
 namespace API.Services.Token
 {

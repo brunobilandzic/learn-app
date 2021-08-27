@@ -1,4 +1,4 @@
-namespace API.Services.DTOs
+namespace API.DTOs
 {
     public class AuthorizedDto
     {

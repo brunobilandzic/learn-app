@@ -1,14 +1,17 @@
 using System.Threading.Tasks;
 using API.Services;
-using API.Services.DTOs;
+using API.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     public class AccountController : BaseApiController
     {
-        public AccountController(IServicesIndex services) : base(services)
+       protected readonly IAccountServices _services;
+
+        public AccountController(IAccountServices services)
         {
+            _services = services;
         }
 
         [HttpPost("login")]

@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using API.DataAccess.Queries;
 using API.DataLayer.EfCode.DbSetup;
 using API.DataLayer.Entities.Identity;
-using API.Services.DTOs;
+using API.DTOs;
 using Microsoft.AspNetCore.Identity;
 
 namespace API.DataAccess.Repositories.User

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using API.DataAccess.Repositories.User;
 using API.DataLayer.Entities.Identity;
 using API.Errors;
-using API.Services.DTOs;
+using API.DTOs;
 using AutoMapper;
 
 namespace API.Services.Registration

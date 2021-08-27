@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using API.DataAccess.Queries;
 using API.DataLayer.EfCode.DbSetup;
 using API.DataLayer.Entities.Learning;
-using API.Services.DTOs;
+using API.DTOs;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;

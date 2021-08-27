@@ -1,6 +1,6 @@
 using API.DataLayer.Entities.Identity;
 using API.DataLayer.Entities.Learning;
-using API.Services.DTOs;
+using API.DTOs;
 using AutoMapper;
 
 namespace API.Helpers
