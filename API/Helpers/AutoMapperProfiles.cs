@@ -1,5 +1,6 @@
 using API.DataLayer.Entities.Identity;
 using API.DataLayer.Entities.Learning;
+using API.DataLayer.Entities.StudentRelationships;
 using API.DTOs;
 using AutoMapper;
 
@@ -12,6 +13,12 @@ namespace API.Helpers
             CreateMap<RegisterDto, AppUser>();
             CreateMap<Course, CourseDto>();
             CreateMap<CourseDto, Course>();
+            CreateMap<ExamDto, Exam>();
+            CreateMap<Exam, ExamDto>();
+            CreateMap<LectureDto, Lecture>();
+            CreateMap<Lecture, LectureDto>();
+            CreateMap<StudentCourseDto, StudentCourse>();
+            CreateMap<StudentCourse, StudentCourseDto>();
         }
     }
 }

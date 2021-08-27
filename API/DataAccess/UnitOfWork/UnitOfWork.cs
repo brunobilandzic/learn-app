@@ -29,8 +29,8 @@ namespace API.DataAccess.UnitOfWork
 
         public ICoursesRepository CoursesRepository => new CoursesRepository(_context, _mapper);
 
-        public IExamsRepository ExamsRepository => new ExamsRepository();
-        public ILecturesRepository LecturesRepository => new LecturesRepository();
+        public IExamsRepository ExamsRepository => new ExamsRepository(_context, _mapper);
+        public ILecturesRepository LecturesRepository => new LecturesRepository(_context, _mapper);
 
         public ILearningTasksRepository LearningTasksRepository => new LearningTasksRepository();
         public Task<int> SaveAllChanges()

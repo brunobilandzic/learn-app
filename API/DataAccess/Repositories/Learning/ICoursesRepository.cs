@@ -8,5 +8,6 @@ namespace API.DataAccess.Repositories.Learning
     {
         Task<CourseDto> AddNewCourse(CourseDto courseDto);
         Task<IEnumerable<CourseDto>> GetCourses();
+        Task AddStudentCourse(int courseId, int studentId);
     }
 }

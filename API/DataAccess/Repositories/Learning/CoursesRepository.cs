@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using API.DataAccess.Queries;
 using API.DataLayer.EfCode.DbSetup;
 using API.DataLayer.Entities.Learning;
+using API.DataLayer.Entities.StudentRelationships;
 using API.DTOs;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -38,6 +39,20 @@ namespace API.DataAccess.Repositories.Learning
         public async Task<IEnumerable<CourseDto>> GetCourses()
         {
             return await _queries.GetAll<CourseDto>(_mapper.ConfigurationProvider);
+        }
+
+        public async Task AddStudentCourse(int courseId, int studentId)
+        {
+            var studentCourse = new StudentCourse
+            {
+                StudentId = studentId,
+                CourseId = courseId
+            };
+
+            await _context.StudentCourses
+                .AddAsync(studentCourse);
+            
+            await _context.SaveChangesAsync();
         }
     
     }
