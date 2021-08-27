@@ -21,6 +21,15 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [Authorize]
+        [HttpPost("enroll/{courseId}")]
+        public async Task<ActionResult> AddStudentCourse(int courseId)
+        {
+            await _unitOfWork.CoursesRepository.AddStudentCourse(courseId, User.GetUserId());
+            return Ok("Student Enrolled");
+        }
+        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDto>>> GetCourses()
         {
@@ -69,13 +78,7 @@ namespace API.Controllers
             
             return Ok(newLecture);
         }
-        [Authorize]
-        [HttpPost("enroll/{courseId}")]
-        public async Task<ActionResult> AddStudentCourse(int courseId)
-        {
-            await _unitOfWork.CoursesRepository.AddStudentCourse(courseId, User.GetUserId());
-            return Ok("Student Enrolled");
-        }
+        
 
 
     }

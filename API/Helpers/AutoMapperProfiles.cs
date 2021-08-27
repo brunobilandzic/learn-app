@@ -19,6 +19,8 @@ namespace API.Helpers
             CreateMap<Lecture, LectureDto>();
             CreateMap<StudentCourseDto, StudentCourse>();
             CreateMap<StudentCourse, StudentCourseDto>();
+            CreateMap<LearningTaskDto, LearningTask>();
+            CreateMap<LearningTask, LearningTaskDto>();
         }
     }
 }

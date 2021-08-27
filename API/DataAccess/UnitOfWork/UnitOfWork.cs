@@ -32,7 +32,7 @@ namespace API.DataAccess.UnitOfWork
         public IExamsRepository ExamsRepository => new ExamsRepository(_context, _mapper);
         public ILecturesRepository LecturesRepository => new LecturesRepository(_context, _mapper);
 
-        public ILearningTasksRepository LearningTasksRepository => new LearningTasksRepository();
+        public ILearningTasksRepository LearningTasksRepository => new LearningTasksRepository(_context, _mapper);
         public Task<int> SaveAllChanges()
         {
             return _context.SaveChangesAsync();
