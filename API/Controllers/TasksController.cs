@@ -48,7 +48,7 @@ namespace API.Controllers
         }
 
         [HttpPost("lecture-completion")]
-         public async Task<ActionResult> AddLecturesToLearningTask(IdToId lectureIdTaskId)
+         public async Task<ActionResult> ToggleLectureCompletion(IdToId lectureIdTaskId)
         {
             await _unitOfWork.LearningTasksRepository
                 .ToggleLectureCompletion(lectureIdTaskId.FirstId, lectureIdTaskId.SecondId);

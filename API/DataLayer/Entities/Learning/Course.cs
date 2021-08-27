@@ -11,8 +11,8 @@ namespace API.DataLayer.Entities.Learning
         [Required]
         public string Title { get; set; }
 
-        public ICollection<Lecture> Lectures { get; set; }
-        public ICollection<StudentCourse> StudentCourses { get; set; }
-        public ICollection<Exam> Exams { get; set; }
+        public virtual ICollection<Lecture> Lectures { get; set; }
+        public virtual ICollection<StudentCourse> StudentCourses { get; set; }
+        public virtual ICollection<Exam> Exams { get; set; }
     }
 }

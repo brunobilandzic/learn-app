@@ -7,10 +7,10 @@ namespace API.DataLayer.Entities.Identity
 {
     public class AppUser : IdentityUser<int>
     {
-        public ICollection<StudentCourse> StudentCourses { get; set; }
-        public ICollection<StudentExam> StudentExams { get; set; }
+        public virtual ICollection<StudentCourse> StudentCourses { get; set; }
+        public virtual ICollection<StudentExam> StudentExams { get; set; }
 
-        public ICollection<LearningTask> LearningTasks { get; set; }
+        public virtual ICollection<LearningTask> LearningTasks { get; set; }
     
     }
 }

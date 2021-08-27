@@ -10,6 +10,6 @@ namespace API.DataLayer.Entities.Learning
 
         public string Topic { get; set; }
 
-        public ICollection<LectureLearningTask> LectureLearningTasks { get; set; }
+        public virtual ICollection<LectureLearningTask> LectureLearningTasks { get; set; }
     }
 }
