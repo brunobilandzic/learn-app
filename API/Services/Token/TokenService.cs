@@ -29,7 +29,7 @@ namespace API.Services.Token
             var user = await _userRepository.GetUser(loginDto.Username);
 
             if (user == null)
-                throw new AppException(HttpStatusCode.NotFound, $"User with username '${loginDto.Username}' does not exist.");
+                throw new AppException(HttpStatusCode.NotFound, $"User with username '{loginDto.Username}' does not exist.");
 
             var checkPassword = await _userRepository.CheckPassword(user, loginDto.Password);
 

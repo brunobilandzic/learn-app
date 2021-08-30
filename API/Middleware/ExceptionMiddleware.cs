@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -28,10 +29,11 @@ namespace API.Middleware
             }
             catch (AppException ex)
             {
+                Console.WriteLine("csaccsacsac");
                 _logger.LogError(ex, ex.Message);
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = ex.StatusCode;
-
+                
                 var response = _env.IsDevelopment()
                     ? new ExceptionResponse(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString())
                     : new ExceptionResponse(context.Response.StatusCode, "Internal Server Error");
