@@ -57,6 +57,14 @@ namespace API.Controllers
 
             return Ok();
         }
+        [HttpDelete("{learningTaskId}")]
+        public async Task<ActionResult> RemoveLectureFromTask(int learningTaskId)
+        {
+            await _unitOfWork.LearningTasksRepository
+                .RemoveLearningTask(learningTaskId);
+
+            return Ok();
+        }
 
         [HttpDelete("lecture")]
         public async Task<ActionResult> RemoveLectureFromTask(IdToId lectureTaskIds)

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using API.DataLayer.EfCode.DbSetup;
 using API.DataLayer.Entities.Learning;
@@ -59,6 +60,19 @@ namespace API.DataAccess.Repositories.Learning
                 .Where(lt => lt.StudentId == studentId)
                 .ProjectTo<LearningTaskDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();          
+        }
+
+        public async Task RemoveLearningTask(int learningTaskId)
+        {
+            var learningTask = new LearningTask 
+            {
+                LearningTaskId = learningTaskId
+            };
+
+            _context.LearningTasks.Attach(learningTask);
+            _context.LearningTasks.Remove(learningTask);
+
+            if(await _context.SaveChangesAsync() <= 0) throw new AppException(HttpStatusCode.BadRequest, "Failed to delete learning task.");
         }
 
         public async Task RemoveLectureFromTask(IdToId lectureTaskIds)

@@ -8,5 +8,6 @@ namespace API.DataAccess.Repositories.Learning
     {
         Task<ExamDto> AddExam(ExamDto examDto);
         Task<IEnumerable<ExamDto>> GetExams(int courseId);
+        Task<IEnumerable<ExamDto>> GetAllFutureExams(int userId);
     }
 }

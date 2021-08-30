@@ -1,3 +1,4 @@
+using System.Linq;
 using API.DataLayer.Entities.Identity;
 using API.DataLayer.Entities.Learning;
 using API.DataLayer.Entities.StudentRelationships;
@@ -19,8 +20,21 @@ namespace API.Helpers
             CreateMap<Lecture, LectureDto>();
             CreateMap<StudentCourseDto, StudentCourse>();
             CreateMap<StudentCourse, StudentCourseDto>();
+            CreateMap<LectureLearningTask, LectureLearningTaskDto>()
+                .ForMember(
+                    dest => dest.Topic,
+                    opt => opt.MapFrom(
+                        src => src.Lecture.Topic
+                    )
+                );
             CreateMap<LearningTaskDto, LearningTask>();
-            CreateMap<LearningTask, LearningTaskDto>();
+            CreateMap<LearningTask, LearningTaskDto>()
+                .ForMember(
+                    lt => lt.Lectures,
+                    opt => opt.MapFrom(
+                        src => src.LectureLearningTasks
+                    )
+                );
         }
     }
 }

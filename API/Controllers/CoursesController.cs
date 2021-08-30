@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using API.Services.ClaimsExtensions;
 using API.DataLayer.Entities.StudentRelationships;
 using Microsoft.AspNetCore.Authorization;
+using API.Errors;
 
 namespace API.Controllers
 {
@@ -28,12 +29,28 @@ namespace API.Controllers
             await _unitOfWork.CoursesRepository.AddStudentCourse(courseId, User.GetUserId());
             return Ok("Student Enrolled");
         }
+
+        [Authorize]
+        [HttpPost("unroll/{courseId}")]
+        public async Task<ActionResult> RemoveStudentCourse(int courseId)
+        {
+            await _unitOfWork.CoursesRepository.RemoveStudentCourse(courseId, User.GetUserId());
+            return Ok();
+        }
         
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDto>>> GetCourses()
         {
             var courses = await _unitOfWork.CoursesRepository.GetCourses();
+
+            return Ok(courses);
+        }
+
+        [HttpGet("student")]
+        public async Task<ActionResult<IEnumerable<CourseDto>>> GetCoursesForStudent()
+        {
+            var courses = await _unitOfWork.CoursesRepository.GetUserCourses(User.GetUserId());
 
             return Ok(courses);
         }

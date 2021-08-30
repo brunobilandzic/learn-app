@@ -12,5 +12,7 @@ namespace API.DataAccess.Repositories.Learning
         Task AddLecturesToLearningTask(IdsToId lecturesToTask);
         Task ToggleLectureCompletion(int lectureId, int learningTaskId);
         Task RemoveLectureFromTask(IdToId lectureTaskIds);
+
+        Task RemoveLearningTask(int learningTaskId);
     }
 }

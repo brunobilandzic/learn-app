@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,6 +40,18 @@ namespace API.DataAccess.Repositories.Learning
         {
             return await _context.Exams
                 .Where(e => e.CourseId == courseId)
+                .ProjectTo<ExamDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ExamDto>> GetAllFutureExams(int userId)
+        {
+            var examIds = await _context.StudentExams
+                .Where(se => se.StudentId == userId)
+                .Select(se => se.ExamId)
+                .ToListAsync();
+            return await _context.Exams
+                .Where(e => examIds.Contains(e.ExamId))
                 .ProjectTo<ExamDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
