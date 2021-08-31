@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { count, defaultIfEmpty, finalize, isEmpty, map, take } from 'rxjs/operators';
 import { UsernamePass } from '../_models/help/authorization';
 import { AccountService } from '../_services/account.service';
 
@@ -15,21 +13,17 @@ export class NavComponent implements OnInit {
     username: '',
     password: '',
   };
-  constructor(public accountService: AccountService, private router: Router) {}
+  constructor(public accountService: AccountService, public router: Router) {}
 
   ngOnInit(): void {
-    this.accountService.user$
-      .subscribe(user => {
-        if(user == undefined) {
-          this.router.navigateByUrl("register");
-        }
-      
-      });
+    this.accountService.isLoggedIn().subscribe((isLoggedIn) => {
+      if (isLoggedIn == false) this.router.navigateByUrl('register');
+    });
   }
-  navigateToRegister()
-  {
-  }
+  navigateToRegister() {}
   onLogin() {
-    this.accountService.login(this.authorizationForm).subscribe(() => {});
+    this.accountService.login(this.authorizationForm).subscribe(() => {
+      this.router.navigateByUrl("");
+    });
   }
 }

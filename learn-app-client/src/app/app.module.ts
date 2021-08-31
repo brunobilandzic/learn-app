@@ -15,13 +15,22 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { RegisterComponent } from './register/register.component';
 import { TextInputComponent } from './_inputs/text-input/text-input.component';
 import { CommonModule } from '@angular/common';
+import { CoursesComponent } from './courses/courses-panel/courses.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { CoursesListComponent } from './courses/courses-list/courses-list.component';
+import { CourseLinkComponent } from './courses/courses-list/course-link/course-link.component';
+import { CourseViewComponent } from './courses/course-view/course-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     RegisterComponent,
-    TextInputComponent
+    TextInputComponent,
+    CoursesComponent,
+    CoursesListComponent,
+    CourseLinkComponent,
+    CourseViewComponent
   ],
   imports: [
     ToastrModule.forRoot(
@@ -35,7 +44,8 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     NgxSpinnerModule,
     BsDropdownModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TabsModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},

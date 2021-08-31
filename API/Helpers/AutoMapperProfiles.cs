@@ -14,6 +14,7 @@ namespace API.Helpers
             CreateMap<RegisterDto, AppUser>();
             CreateMap<Course, CourseDto>();
             CreateMap<CourseDto, Course>();
+            CreateMap<Course, CourseNavigationDto>();
             CreateMap<ExamDto, Exam>();
             CreateMap<Exam, ExamDto>();
             CreateMap<LectureDto, Lecture>();

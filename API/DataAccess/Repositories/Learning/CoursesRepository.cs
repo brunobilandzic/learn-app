@@ -126,5 +126,19 @@ namespace API.DataAccess.Repositories.Learning
             
             if(await _context.SaveChangesAsync() <= 0) throw new InternalServerException("Failed to remove student from course."); 
         }
+
+        public async Task<CourseNavigationDto> GetCourse(int courseId)
+        {
+            var courseNavigationDto = await _context.Courses
+                .Where(c => c.CourseId == courseId)
+                .Include(c => c.Lectures)
+                .Include(c => c.Exams)
+                .Select(c => _mapper.Map<CourseNavigationDto>(c))
+                .FirstOrDefaultAsync();
+            
+            if(courseNavigationDto == null) throw new NotFoundException($"Course (id: {courseId}) not found.");
+
+            return courseNavigationDto;
+        }
     }
 }

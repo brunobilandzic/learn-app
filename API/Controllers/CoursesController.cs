@@ -46,6 +46,13 @@ namespace API.Controllers
 
             return Ok(courses);
         }
+        [HttpGet("{courseId}")]
+        public async Task<ActionResult<CourseNavigationDto>> GetCourse(int courseId)
+        {
+            var course = await _unitOfWork.CoursesRepository.GetCourse(courseId);
+
+            return Ok(course);
+        }
 
         [HttpGet("student")]
         public async Task<ActionResult<IEnumerable<CourseDto>>> GetCoursesForStudent()
@@ -62,13 +69,6 @@ namespace API.Controllers
             return Ok(newCourse);
         }
 
-        [HttpGet("exams/{courseId}")]
-        public async Task<ActionResult<ExamDto>> GetExamsForCourse(int courseId)
-        {
-            var newExam = await _unitOfWork.ExamsRepository.GetExams(courseId);
-            
-            return Ok(newExam);
-        }
 
 
         [HttpPost("exams")]
@@ -78,15 +78,6 @@ namespace API.Controllers
             
             return Ok(newExam);
         }
-
-        [HttpGet("lectures/{courseId}")]
-        public async Task<ActionResult<LectureDto>> GetLecturesForCourse(int courseId)
-        {
-            var lectures = await _unitOfWork.LecturesRepository.GetLectures(courseId);
-            
-            return Ok(lectures);
-        }
-
 
         [HttpPost("lectures")]
         public async Task<ActionResult<ExamDto>> AddLecture(LectureDto lectureDto)

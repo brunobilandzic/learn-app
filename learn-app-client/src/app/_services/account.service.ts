@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthorizedUser, UsernamePass } from '../_models/help/authorization';
@@ -19,29 +19,31 @@ export class AccountService {
   }
 
   login(authorization: UsernamePass) {
-    return this.http.post(this.baseApiUrl + 'login', authorization)
-      .pipe(
-        map((response: any) => {
-          this.userToStorage(response);
-          this.user.next(response);
-          return;
-        })
-      )
+    return this.http.post(this.baseApiUrl + 'login', authorization).pipe(
+      map((response: any) => {
+        this.userToStorage(response);
+        this.user.next(response);
+        return;
+      })
+    );
   }
 
-  isLoggedIn() {
-    
+  isLoggedIn(): Observable<boolean> {
+    return this.user$.pipe(
+      map((user) => {
+        return user == undefined ? false : true;
+      })
+    );
   }
 
   register(registration: UsernamePass) {
-    return this.http.post(this.baseApiUrl + 'register', registration)
-      .pipe(
-        map((response: any) => {
-          this.userToStorage(response);
-          this.user.next(response);
-          return;
-        })
-      )
+    return this.http.post(this.baseApiUrl + 'register', registration).pipe(
+      map((response: any) => {
+        this.userToStorage(response);
+        this.user.next(response);
+        return;
+      })
+    );
   }
 
   userToStorage(user: AuthorizedUser) {
@@ -56,6 +58,6 @@ export class AccountService {
 
   logout() {
     localStorage.removeItem('authorized-user');
-    this.user.next(undefined)
+    this.user.next(undefined);
   }
 }
