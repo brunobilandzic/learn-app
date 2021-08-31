@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthorizedUser, UsernamePass } from '../_models/help/authorization';
-import { ACTION_FAILURE, ACTION_SUCCESS } from '../_models/help/component-communication';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +14,27 @@ export class AccountService {
   user = new ReplaySubject<AuthorizedUser>(1);
   user$ = this.user.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.user.next(undefined);
+  }
 
   login(authorization: UsernamePass) {
     return this.http.post(this.baseApiUrl + 'login', authorization)
+      .pipe(
+        map((response: any) => {
+          this.userToStorage(response);
+          this.user.next(response);
+          return;
+        })
+      )
+  }
+
+  isLoggedIn() {
+    
+  }
+
+  register(registration: UsernamePass) {
+    return this.http.post(this.baseApiUrl + 'register', registration)
       .pipe(
         map((response: any) => {
           this.userToStorage(response);

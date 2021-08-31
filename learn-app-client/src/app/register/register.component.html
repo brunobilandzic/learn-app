@@ -1,0 +1,31 @@
+<div class="centered-component component">
+    <h3 class="component-title">Register</h3>
+    <form (ngSubmit)="onRegister()" class="register-form">
+        <div [formGroup]="registerFormGroup" class="form-group">
+
+        
+        <app-text-input
+            [label]="'Username'"
+            [ngControl]="registerFormGroup.controls['username']"
+            [formControlName]="'username'"
+        >
+
+        </app-text-input>
+
+        <app-text-input
+            [label]="'Password'"
+            [ngControl]="registerFormGroup.controls['password']"
+            [formControlName]="'password'"
+            [type]="'password'"
+        >
+
+        </app-text-input>
+    </div>
+
+    <div class="form-submit">
+        <button class="btn btn-success submit-form-btn" [disabled]="registerFormGroup.invalid">
+            Register
+        </button>
+    </div>
+    </form>
+</div>

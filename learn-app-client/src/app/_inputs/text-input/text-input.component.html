@@ -1,0 +1,25 @@
+<div class="text-input-wrap">
+  <div class="row text-input-input align-items-center">
+    <label class="text-input-label col-3">{{ label }}:</label>
+    <div class="col-9">
+      <input
+        [class.is-invalid]="ngControl.touched && ngControl.invalid"
+        placeholder="{{ label }}"
+        type="{{ type }}"
+        class="form-control"
+        [formControl]="ngControl.control"
+      />
+      <div *ngIf="ngControl.control?.errors?.required" class="invalid-feedback">
+        Please enter a {{ label }}
+      </div>
+      <div *ngIf="ngControl.control?.errors?.minLength" class="invalid-feedback">
+        {{label}} must be {{ ngControl.control?.errors?.minLength.requiredLength }} long
+      </div>
+      <div *ngIf="ngControl.control?.errors?.pattern" class="invalid-feedback">
+        <div *ngIf="ngControl.control.name == 'username'"></div>
+        {{label}} must contain only alphanumeric characters.
+      </div>
+    </div>
+  </div>
+
+</div>

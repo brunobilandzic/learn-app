@@ -33,6 +33,7 @@ namespace API.DataAccess.Repositories.User
 
         public async Task<IdentityResult> AddUser(AppUser user, string password)
         {
+            user.UserName = user.UserName.ToLower();
             return await _userManager.CreateAsync(user, password);
         }
     }

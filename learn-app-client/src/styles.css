@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+.centered-component{
+    width: 66%;
+    margin: auto;
+}
+
+.component{
+    margin-top: 1.5rem;
+    
+}
+
+.component-title {
+    padding-bottom: 1.21rem;
+    border-bottom: 1px solid black;
+}
