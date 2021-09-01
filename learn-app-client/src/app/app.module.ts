@@ -20,6 +20,12 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CoursesListComponent } from './courses/courses-list/courses-list.component';
 import { CourseLinkComponent } from './courses/courses-list/course-link/course-link.component';
 import { CourseViewComponent } from './courses/course-view/course-view.component';
+import { LecturesListComponent } from './lectures/lectures-list/lectures-list.component';
+import { LectureItemComponent } from './lectures/lecture-item/lecture-item.component';
+import { LectureInfoReadComponent } from './lectures/lecture-item/lecture-info-read/lecture-info-read.component';
+import { LectureTaskResolveComponent } from './lectures/lecture-item/lecture-task-resolve/lecture-task-resolve.component';
+import { SetTaskModalComponent } from './lectures/lecture-item/lecture-task-resolve/set-task-modal/set-task-modal.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -30,7 +36,12 @@ import { CourseViewComponent } from './courses/course-view/course-view.component
     CoursesComponent,
     CoursesListComponent,
     CourseLinkComponent,
-    CourseViewComponent
+    CourseViewComponent,
+    LecturesListComponent,
+    LectureItemComponent,
+    LectureInfoReadComponent,
+    LectureTaskResolveComponent,
+    SetTaskModalComponent
   ],
   imports: [
     ToastrModule.forRoot(
@@ -45,7 +56,8 @@ import { CourseViewComponent } from './courses/course-view/course-view.component
     NgxSpinnerModule,
     BsDropdownModule.forRoot(),
     ReactiveFormsModule,
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},

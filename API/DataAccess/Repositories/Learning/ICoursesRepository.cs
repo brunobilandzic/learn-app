@@ -13,5 +13,7 @@ namespace API.DataAccess.Repositories.Learning
         Task AddStudentCourse(int courseId, int studentId);
         Task RemoveStudentCourse(int courseId, int studentId);
         Task<IEnumerable<CourseDto>> GetUserCourses(int userId);
+        Task<StudentCourseDto> GetStudentCourse(int courseId, int studentId);
+
     }
 }

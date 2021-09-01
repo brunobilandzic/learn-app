@@ -6,6 +6,7 @@ import { CoursesComponent } from './courses/courses-panel/courses.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { GuestGuard } from './_guards/guest.guard';
+import { CourseResolver } from './_resolvers/course.resolver';
 
 const routes: Routes = [
   {
@@ -18,7 +19,10 @@ const routes: Routes = [
       },
       {
         path: 'courses/:id',
-        component: CourseViewComponent
+        component: CourseViewComponent,
+        resolve: {
+          courseInfoResolved: CourseResolver
+        }
       }
     ],
   },

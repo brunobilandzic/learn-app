@@ -27,7 +27,7 @@ namespace API.Controllers
         public async Task<ActionResult> AddStudentCourse(int courseId)
         {
             await _unitOfWork.CoursesRepository.AddStudentCourse(courseId, User.GetUserId());
-            return Ok("Student Enrolled");
+            return Ok();
         }
 
         [Authorize]
@@ -85,6 +85,15 @@ namespace API.Controllers
             var newLecture = await _unitOfWork.LecturesRepository.AddLecture(lectureDto);
             
             return Ok(newLecture);
+        }
+
+
+        [HttpGet("student/{courseId}")]
+        public async Task<ActionResult<StudentCourseDto>> GetStudentCourse(int courseId)
+        {
+            return Ok(await _unitOfWork.CoursesRepository
+                .GetStudentCourse(courseId, User.GetUserId()));
+            
         }
         
 

@@ -131,7 +131,7 @@ namespace API.DataAccess.Repositories.Learning
         {
             var courseNavigationDto = await _context.Courses
                 .Where(c => c.CourseId == courseId)
-                .Include(c => c.Lectures)
+                .Include(c => c.Lectures.OrderBy(l => l.LectureId))
                 .Include(c => c.Exams)
                 .Select(c => _mapper.Map<CourseNavigationDto>(c))
                 .FirstOrDefaultAsync();
@@ -139,6 +139,14 @@ namespace API.DataAccess.Repositories.Learning
             if(courseNavigationDto == null) throw new NotFoundException($"Course (id: {courseId}) not found.");
 
             return courseNavigationDto;
+        }
+
+        public async Task<StudentCourseDto> GetStudentCourse(int courseId, int studentId)
+        {
+            return await  _context.StudentCourses
+                .Where(sc => sc.CourseId == courseId && sc.StudentId == studentId)
+                .Select(sc => _mapper.Map<StudentCourseDto>(sc))
+                .FirstOrDefaultAsync();
         }
     }
 }
