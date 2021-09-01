@@ -65,4 +65,16 @@ export class CoursesService {
       )
   }
 
+  getStudentCourse(courseId: string) {
+    return this.http.get(this.baseApiUrl + 'courses/student/' + courseId);
+  }
+
+  erollInCourse(courseId: string) {
+    return this.http.post(this.baseApiUrl + 'courses/enroll/' + courseId, {});
+  }
+
+  unrollFromCourse(courseId: string) {
+    return this.http.post(this.baseApiUrl + 'courses/unroll/' + courseId, {});
+  }
+
 }

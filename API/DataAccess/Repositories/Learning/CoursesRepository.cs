@@ -140,5 +140,13 @@ namespace API.DataAccess.Repositories.Learning
 
             return courseNavigationDto;
         }
+
+        public async Task<StudentCourseDto> GetStudentCourse(int courseId, int studentId)
+        {
+            return await  _context.StudentCourses
+                .Where(sc => sc.CourseId == courseId && sc.StudentId == studentId)
+                .Select(sc => _mapper.Map<StudentCourseDto>(sc))
+                .FirstOrDefaultAsync();
+        }
     }
 }

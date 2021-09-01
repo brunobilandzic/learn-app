@@ -1,15 +1,41 @@
 <div class="component">
-    <div class="component-title">{{courseNavigation?.title}}</div>
-</div>
+  <div class="component-title d-flex justify-content-between">
+    <div class="title">
+      {{ courseNavigation?.title }}
+    </div>
+    <ng-container *ngIf="isEnrolled; else notEnrolledTemplate">
+      <button
+        #enrolled
+        (mouseenter)="onMouseEnterEnrolled($event)"
+        (mouseleave)="onMouseLeaveEnrolled($event)"
+        class="btn btn-outline-dark enrollment-btn"
+        (click)="onUnroll()"
+      >
+        {{ENROLLED_STATE_TEXT}}
+      </button>
+    </ng-container>
+    <ng-template #notEnrolledTemplate>
+      <button
+        #notEnrolled
+        (mouseenter)="onMouseEnterNotEnrolled($event)"
+        (mouseleave)="onMouseLeaveNotEnrolled($event)"
+        class="btn btn-outline-dark enrollment-btn"
+        (click)="onEnroll()"
+      >
+         {{NOT_ENROLLED_STATE_TEXT}}
+      </button>
+    </ng-template>
+  </div>
 
-<div *ngIf="courseNavigation" class="lectures">
+  <div *ngIf="courseNavigation" class="lectures">
     <div *ngFor="let lecture of courseNavigation.lectures">
-        {{lecture | json}}
+      {{ lecture | json }}
     </div>
-</div>
+  </div>
 
-<div *ngIf="courseNavigation" class="lectures">
+  <div *ngIf="courseNavigation" class="lectures">
     <div *ngFor="let exam of courseNavigation.exams">
-        {{exam | json}}
+      {{ exam | json }}
     </div>
+  </div>
 </div>
