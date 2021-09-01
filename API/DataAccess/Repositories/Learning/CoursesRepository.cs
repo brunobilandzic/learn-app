@@ -131,7 +131,7 @@ namespace API.DataAccess.Repositories.Learning
         {
             var courseNavigationDto = await _context.Courses
                 .Where(c => c.CourseId == courseId)
-                .Include(c => c.Lectures)
+                .Include(c => c.Lectures.OrderBy(l => l.LectureId))
                 .Include(c => c.Exams)
                 .Select(c => _mapper.Map<CourseNavigationDto>(c))
                 .FirstOrDefaultAsync();

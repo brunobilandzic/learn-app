@@ -1,0 +1,13 @@
+<div class="lectures-list-wrap">
+  <div class="lectures-title sub-component-title">
+    Lectures
+  </div>
+  <ul class="list-group">
+    <ng-container  #listItem *ngFor="let lecture of lectures">
+      <app-lecture-item class="list-group-item" [app-lecture-item]
+        [lecture]="lecture"
+        [isEnrolled]="isEnrolled"
+      ></app-lecture-item>
+    </ng-container>
+  </ul>
+</div>

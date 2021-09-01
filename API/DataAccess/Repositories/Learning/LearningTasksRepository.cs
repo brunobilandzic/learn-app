@@ -46,6 +46,20 @@ namespace API.DataAccess.Repositories.Learning
             }
         }
 
+        public async Task CompleteWholeLearningTask(int learningTaskId)
+        {
+            var lectureLearningTaskList = await _context.LectureLearningTasks
+                .Where(llt => llt.LearningTaskId == learningTaskId)
+                .ToListAsync();
+
+            if(lectureLearningTaskList == null) throw new NotFoundException("Could not find any lectures in given task.");
+
+            foreach (var task in lectureLearningTaskList)
+            {
+                task.Completed = true;
+            }
+        }
+
         public async Task<LearningTaskDto> CreateLearningTask(LearningTaskDto learningTaskDto, int studentId)
         {
             var newLearningTask = _mapper.Map<LearningTask>(learningTaskDto);
@@ -91,6 +105,14 @@ namespace API.DataAccess.Repositories.Learning
             _context.LectureLearningTasks.Remove(lectureLearningTask);
         }
 
+        public async Task<LearningTaskDto> TaskForLecture(int lectureId)
+        {
+            return await _context.LearningTasks
+                .Where(lt => lt.LectureLearningTasks.Select(llt => llt.LectureId).Contains(lectureId))
+                .ProjectTo<LearningTaskDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+        }
+        
         public async Task ToggleLectureCompletion(int lectureId, int learningTaskId)
         {
             var lectureLearningTask = await _context.LectureLearningTasks

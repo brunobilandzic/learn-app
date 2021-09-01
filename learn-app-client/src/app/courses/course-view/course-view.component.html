@@ -28,9 +28,10 @@
   </div>
 
   <div *ngIf="courseNavigation" class="lectures">
-    <div *ngFor="let lecture of courseNavigation.lectures">
-      {{ lecture | json }}
-    </div>
+    <app-lectures-list
+      [lectures]="courseNavigation.lectures"
+      [isEnrolled]="isEnrolled"
+    ></app-lectures-list>
   </div>
 
   <div *ngIf="courseNavigation" class="lectures">

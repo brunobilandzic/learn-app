@@ -1,0 +1,19 @@
+<div class="lecture-task-wrap d-flex justify-content-end">
+  <div
+    *ngIf="isInTask"
+    class="task-info d-flex align-items-center px-2 rounded"
+    [class.completed]="learningTask.completed"
+  >
+    <div>
+      {{
+        learningTask.tag.slice(0, 5) +
+          (learningTask.tag.length > 5 ? "..." : "")
+      }}
+    </div>
+  </div>
+  <div class="move-to-add ms-2">
+    <button (click)="openSetTaskModal()" class="btn btn-primary btn-sm task-btn">
+      {{ isInTask ? "Move" : "Add" }}
+    </button>
+  </div>
+</div>

@@ -30,6 +30,15 @@ namespace API.Controllers
             return Ok(learningTasks);
         }
 
+        [HttpGet("w/{lectureId}")]
+        public async Task<ActionResult<LearningTaskDto>> GetLearningTaskWithLecture(int lectureId)
+        {
+            var learningTask = await _unitOfWork.LearningTasksRepository
+                .TaskForLecture(lectureId);
+
+            return Ok(learningTask);
+        }
+
         [HttpPost]
          public async Task<ActionResult<LearningTaskDto>> CreateLearningTask(LearningTaskDto learningTaskDto)
          {
@@ -57,6 +66,18 @@ namespace API.Controllers
 
             return Ok();
         }
+
+        [HttpPost("complete/{learningTaskId}")]
+        public async Task<ActionResult> CompleteWholeTask(int learningTaskId)
+        {
+            await _unitOfWork.LearningTasksRepository
+                .CompleteWholeLearningTask(learningTaskId);
+
+            if(await _unitOfWork.SaveAllChanges() <= 0) throw new InternalServerException("Failed to mark task complete.");
+
+            return Ok();
+        }
+
         [HttpDelete("{learningTaskId}")]
         public async Task<ActionResult> RemoveLectureFromTask(int learningTaskId)
         {
