@@ -27,17 +27,22 @@ namespace API.DataAccess.Repositories.Learning
             _context = context;
         }
 
-        public async Task AddLecturesToLearningTask(IdsToId lecturesToTask)
+        public async Task AddLecturesToLearningTask(IdsToId lecturesToTask, int studentId)
         { 
             foreach (var id in lecturesToTask.Ids)
             {
-                var lectureLearningTask = new LectureLearningTask
+                var newLectureLearningTask = new LectureLearningTask
                 {
                     LectureId = id,
                     LearningTaskId = lecturesToTask.Id
                 };
+                var lectureLearningTasksToDelete = await _context.LearningTasks
+                    .Where(lt => lt.StudentId == studentId)
+                    .SelectMany(lt => lt.LectureLearningTasks.Where(llt => llt.LectureId == id))
+                    .ToListAsync();
 
-                await _context.AddAsync(lectureLearningTask);
+                _context.LectureLearningTasks.RemoveRange(lectureLearningTasksToDelete);
+                await _context.LectureLearningTasks.AddAsync(newLectureLearningTask);
             }
         }
 

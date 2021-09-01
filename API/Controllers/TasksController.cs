@@ -40,9 +40,9 @@ namespace API.Controllers
          public async Task<ActionResult> AddLecturesToLearningTask(IdsToId lecturesToTask)
         {
             await _unitOfWork.LearningTasksRepository
-                .AddLecturesToLearningTask(lecturesToTask);
+                .AddLecturesToLearningTask(lecturesToTask, User.GetUserId());
 
-            if(await _unitOfWork.SaveAllChanges() <= 0) throw new InternalServerException("Failed to create new learning task");
+            if(await _unitOfWork.SaveAllChanges() <= 0) throw new InternalServerException("Failed to add lectures to task");
 
             return Ok();
         }
