@@ -15,14 +15,14 @@ This README would normally document whatever steps are necessary to get your app
     * Exam
     * LearningTask
 * Relationships:
-First Entity    | Second Entity | Cardinality | Realationship Table
-----------------|---------------|-------------|--------------------
-AppUser         | Course        | (0,n)-(0,n) | StudentCourse
-AppUser         | Exam          | (0,n)-(0,n) | StudentExam
-AppUser         | LearningTask  | (1,1)-(0,n) | -
-Course          | Lecture       | (1,1)-(0,n) | -
-Course          | Exam          | (1,1)-(0,n) | -
-LearningTask    | Lecture       | (0,n)-(0,n) | LectureLearningTask
+    * AppUser-Course (0,n)-(0,n) -> StudentCourse Table
+    * AppUser-Exam (0,n)-(0,n) -> StudentExam Table
+    * AppUser-LearningTask  (1,1)-(0,n) -> StudentId FK in LearningTask
+    * Course-Lecture (1,1)-(0,n) -> CourseId FK in Lecture
+    * Course-Exam (1,1)-(0,n) -> CourseId FK in Exam
+    * LearningTask-Lecture (0,n)-(0,n) -> LectureLearning Table
+
+
 
 
     
