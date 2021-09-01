@@ -27,17 +27,36 @@ namespace API.DataAccess.Repositories.Learning
             _context = context;
         }
 
-        public async Task AddLecturesToLearningTask(IdsToId lecturesToTask)
+        public async Task AddLecturesToLearningTask(IdsToId lecturesToTask, int studentId)
         { 
             foreach (var id in lecturesToTask.Ids)
             {
-                var lectureLearningTask = new LectureLearningTask
+                var newLectureLearningTask = new LectureLearningTask
                 {
                     LectureId = id,
                     LearningTaskId = lecturesToTask.Id
                 };
+                var lectureLearningTasksToDelete = await _context.LearningTasks
+                    .Where(lt => lt.StudentId == studentId)
+                    .SelectMany(lt => lt.LectureLearningTasks.Where(llt => llt.LectureId == id))
+                    .ToListAsync();
 
-                await _context.AddAsync(lectureLearningTask);
+                _context.LectureLearningTasks.RemoveRange(lectureLearningTasksToDelete);
+                await _context.LectureLearningTasks.AddAsync(newLectureLearningTask);
+            }
+        }
+
+        public async Task CompleteWholeLearningTask(int learningTaskId)
+        {
+            var lectureLearningTaskList = await _context.LectureLearningTasks
+                .Where(llt => llt.LearningTaskId == learningTaskId)
+                .ToListAsync();
+
+            if(lectureLearningTaskList == null) throw new NotFoundException("Could not find any lectures in given task.");
+
+            foreach (var task in lectureLearningTaskList)
+            {
+                task.Completed = true;
             }
         }
 
@@ -86,6 +105,14 @@ namespace API.DataAccess.Repositories.Learning
             _context.LectureLearningTasks.Remove(lectureLearningTask);
         }
 
+        public async Task<LearningTaskDto> TaskForLecture(int lectureId)
+        {
+            return await _context.LearningTasks
+                .Where(lt => lt.LectureLearningTasks.Select(llt => llt.LectureId).Contains(lectureId))
+                .ProjectTo<LearningTaskDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+        }
+        
         public async Task ToggleLectureCompletion(int lectureId, int learningTaskId)
         {
             var lectureLearningTask = await _context.LectureLearningTasks

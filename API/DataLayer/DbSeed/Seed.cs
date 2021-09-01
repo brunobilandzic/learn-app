@@ -121,6 +121,7 @@ namespace API.DataLayer.DbSeed
                 {
                     var newLearningTask = new LearningTask
                     {
+                        Tag = CreateRandomTaskTagName(),
                         StudentId = user.Id,
                         Importance = r.Next(6),
                         DeadlineDate = DateTime.Now.AddMonths(r.Next(3))
@@ -179,15 +180,20 @@ namespace API.DataLayer.DbSeed
             }
         }
 
-        private static DateTime GetDateInRange(int dayOffset)
+        private static string CreateRandomTaskTagName()
         {
-            var today = DateTime.Now;
-            var maxDate = today.AddDays(dayOffset);
+            var r = new Random();
+            
+            var length = r.Next(3,10);
+            char[] chars = new char[length];
 
-            Random r = new Random();
-            var days = r.Next(dayOffset);
-
-            return today.AddDays(days);
+            for (int i = 0; i < length; i++)
+            {
+                var newChar = (char)r.Next(65,91);
+                Console.WriteLine(newChar);
+                chars[i]= newChar;                         
+            }
+            return new string(chars);
         }
     }
 }

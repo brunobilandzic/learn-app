@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Course } from '../_models/course';
@@ -17,6 +17,7 @@ export class CoursesService {
   allCourses: Course[] = [];
   myCourses: Course[] = [];
   courseNavigation = new Map();
+  
   constructor(private http: HttpClient) {}
 
   getCourses(mode: string) {

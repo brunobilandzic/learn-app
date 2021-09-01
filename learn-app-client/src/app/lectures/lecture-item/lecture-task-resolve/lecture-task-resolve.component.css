@@ -1,0 +1,11 @@
+.task-btn {
+    width: 75px;
+}
+
+.task-info {
+    border: 1px solid rgb(25,135,84)
+}
+
+.completed {
+    border-color: rgb(220,53,69)
+}

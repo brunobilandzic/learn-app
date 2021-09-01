@@ -9,10 +9,12 @@ namespace API.DataAccess.Repositories.Learning
     {
         Task<IEnumerable<LearningTaskDto>> GetLearningTasks(int studentId);
         Task<LearningTaskDto> CreateLearningTask(LearningTaskDto learningTaskDto, int studentId);
-        Task AddLecturesToLearningTask(IdsToId lecturesToTask);
+        Task AddLecturesToLearningTask(IdsToId lecturesToTask, int studentId);
         Task ToggleLectureCompletion(int lectureId, int learningTaskId);
-        Task RemoveLectureFromTask(IdToId lectureTaskIds);
 
+        Task CompleteWholeLearningTask(int learningTaskId);
+        Task RemoveLectureFromTask(IdToId lectureTaskIds);
+        Task<LearningTaskDto> TaskForLecture(int lectureId);
         Task RemoveLearningTask(int learningTaskId);
     }
 }

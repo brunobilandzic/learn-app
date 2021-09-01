@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <select [(ngModel)]="selectedLearningTaskId" class="form-select" aria-label="Default select example">
+        <option [value]="learningTask.learningTaskId" *ngFor="let learningTask of learningTasks">
+            <div class="row m-0">
+                <div class="col-8">
+                    {{learningTask.tag}}
+                </div>
+                <div class="col-4">
+                    {{learningTask.deadlineDate | date}}
+                </div>
+            </div>
+        </option>
+    </select>
+    {{selectedLearningTaskId}}
+  </div>
+  <div class="modal-footer">
+    <button (click)="onSave()"  [disabled]="!selectedLearningTaskId" class="btn btn-success">{{saveBtnText}}</button>
+    <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Close</button>
+  </div>
