@@ -4,9 +4,20 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* App for tracking learning tasks
+* Only one role - student ( roles not implemented ), no user to user interactions
+* Entities:
+    * AppUser
+    * Course
+    * Lecture
+    * Exam
+    * Learning Task
+* Relationships:
+First Entity    | Second Entity | Cardinality | Realationship Table
+----------------|---------------|-------------|--------------------
+AppUser         | Course        | (0,n)-(0,n) | StudentCourse
+
+    
 
 ### How do I get set up? ###
 
