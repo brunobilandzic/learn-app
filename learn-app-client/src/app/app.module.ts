@@ -26,6 +26,10 @@ import { LectureInfoReadComponent } from './lectures/lecture-item/lecture-info-r
 import { LectureTaskResolveComponent } from './lectures/lecture-item/lecture-task-resolve/lecture-task-resolve.component';
 import { SetTaskModalComponent } from './lectures/lecture-item/lecture-task-resolve/set-task-modal/set-task-modal.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { LearningTasksListComponent } from './learning-tasks/learning-tasks-list/learning-tasks-list.component';
+import { LearningTaskViewComponent } from './learning-tasks/learning-task-view/learning-task-view.component';
+import { LearningTaskCardComponent } from './learning-tasks/learning-task-card/learning-task-card.component';
+import { TaskCardIconComponent } from './learning-tasks/learning-task-card/task-card-icon/task-card-icon.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     LectureItemComponent,
     LectureInfoReadComponent,
     LectureTaskResolveComponent,
-    SetTaskModalComponent
+    SetTaskModalComponent,
+    LearningTasksListComponent,
+    LearningTaskViewComponent,
+    LearningTaskCardComponent,
+    TaskCardIconComponent
   ],
   imports: [
     ToastrModule.forRoot(

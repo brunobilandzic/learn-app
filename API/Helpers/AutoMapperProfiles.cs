@@ -36,6 +36,27 @@ namespace API.Helpers
                         src => src.LectureLearningTasks
                     )
                 );
+
+            CreateMap<LearningTask, LearningTaskMinDto>()
+                .ForMember(
+                    lt => lt.Completed,
+                    opt => opt.MapFrom(
+                        src => src.LectureLearningTasks.Count() > 0 && src.LectureLearningTasks.Where(llt => llt.Completed == false).Count() == 0      
+                    )
+                )
+                .ForMember(
+                    lt => lt.CompletedLecturesCount, 
+                    opt => opt.MapFrom(
+                        src => src.LectureLearningTasks.Where(llt => llt.Completed).Count()
+                    )
+                )
+                .ForMember(
+                    lt => lt.LecturesCount,
+                    opt => opt.MapFrom(
+                        src => src.LectureLearningTasks.Count()
+                    )
+                );
+            CreateMap<LearningTaskMinDto, LearningTask>();
         }
     }
 }

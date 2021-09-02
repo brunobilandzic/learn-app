@@ -1,0 +1,46 @@
+<div class="component">
+  <div class="component-title d-flex justify-content-between">
+    <div class="title">Learning Tasks</div>
+    <div class="list-options-form d-flex align-items-center">
+      <div class="form-group">
+        <input
+          [checked]="listOptions.hidePassed"
+          name="hidePassed"
+          (change)="onOptionsChange($event)"
+          type="checkbox"
+          class="form-check-input"
+        />
+        <label class="form-check-label ms-1 me-2">Hide Passed</label>
+      </div>
+      <div class="form-group">
+        <input
+          [checked]="listOptions.hideCompleted"
+          name="hideCompleted"
+          (change)="onOptionsChange($event)"
+          type="checkbox"
+          class="form-check-input"
+        />
+        <label class="form-check-label ms-1">Hide Completed</label>
+      </div>
+      <div class="form-group ms-2">
+        <select
+          class="form-select form-select-sm"
+          name="sortBy"
+          (change)="onOptionsChange($event)"
+        >
+          <option
+            *ngFor="let sortByOption of sortByOptions"
+            [value]="sortByOption"
+          >
+            {{ sortByOption | titlecase }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-start align-items-center flex-wrap">
+    <div *ngFor="let task of learningTasks">
+      <app-learning-task-card [learningTask]="task"> </app-learning-task-card>
+    </div>
+  </div>
+</div>

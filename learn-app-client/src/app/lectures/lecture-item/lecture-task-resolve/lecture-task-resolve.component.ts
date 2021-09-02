@@ -14,6 +14,7 @@ export class LectureTaskResolveComponent implements OnInit {
   learningTask: LearningTask;
   isInTask: boolean = false;
   setTaskModalRef?: BsModalRef;
+  @Input() lectureType: string;
   constructor(
     private learningTasksService: LearningTasksService,
     private modalService: BsModalService

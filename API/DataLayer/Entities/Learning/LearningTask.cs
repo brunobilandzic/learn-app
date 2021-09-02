@@ -6,6 +6,7 @@ namespace API.DataLayer.Entities.Learning
 {
     public class LearningTask
     {
+        [Required]
         public string Tag { get; set; }
         public int LearningTaskId { get; set; }
         public int StudentId { get; set; }

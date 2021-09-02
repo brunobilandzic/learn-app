@@ -1,0 +1,13 @@
+<div [class]="'card  my-3 mx-3 ' + dateClass()" style="width: 18rem">
+  <app-task-card-icon [iconType]="dateClass()" [daysDiff]="callGetDaysDiff()"></app-task-card-icon>
+  <div class="task-importance">💲 {{learningTask.importance}}</div>
+  <div class="card-body">
+    <h5 class="card-title">{{ learningTask.tag }}</h5>
+    <h6 class="card-subtitle">{{ learningTask.deadlineDate | date }}</h6>
+    <p class="card-text">
+      Completed: {{ learningTask.completedLecturesCount }} out of
+      {{ learningTask.lecturesCount }} {{ getCheckMark() }}
+    </p>
+    <a href="#" class="btn btn-outline-dark">Lectures</a>
+  </div>
+</div>

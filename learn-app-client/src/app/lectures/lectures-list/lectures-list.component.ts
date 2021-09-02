@@ -9,10 +9,11 @@ import { Lecture } from 'src/app/_models/lecture';
 export class LecturesListComponent implements OnInit {
   @Input() lectures: Lecture [];
   @Input() isEnrolled: boolean = false;
-
+  @Input() lecturesType: string;
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.lecturesType)
   }
 
 }

@@ -1,0 +1,36 @@
+.completed {
+    border-color: #28a745;
+}
+
+.deadline-passed {
+    border-color: #dc3545;
+    
+}
+
+.deadline-warning {
+    border-color: #ffc107;
+}
+
+.deadline-comfy {
+    border-color: #007bff;
+}
+
+.card {
+    border-width: 2px;
+    position: relative;
+    box-shadow: 0 0.25rem 0.4rem 0.1rem rgb(0,0,0,0.15);
+}
+
+app-task-card-icon {
+    position: absolute;
+    right: 1rem;
+    top: 0.8rem;
+}
+
+.task-importance {
+    position: absolute;
+    font-size: 1.15rem;
+    font-weight: bolder;
+    bottom: 0.8rem;
+    right: 1rem;
+}

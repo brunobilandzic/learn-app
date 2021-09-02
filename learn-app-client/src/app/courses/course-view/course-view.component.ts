@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseNavigation } from 'src/app/_models/course-navigation';
 import { CoursesService } from 'src/app/_services/courses.service';
+import { COURSE_LECTURES } from 'src/app/_models/help/component-communication';
 
 @Component({
   selector: 'app-course-view',
@@ -12,9 +13,9 @@ export class CourseViewComponent implements OnInit {
   courseNavigation: CourseNavigation;
   isEnrolled: boolean = false;
   studentCourse: any;
-
-  public ENROLLED_STATE_TEXT = 'Enrolled ☑';
-  public NOT_ENROLLED_STATE_TEXT = 'Not Enrolled ✖';
+  public COURSE_LECTURES = COURSE_LECTURES;
+  public ENROLLED_STATE_TEXT = 'Enrolled ✔';
+  public NOT_ENROLLED_STATE_TEXT = 'Not Enrolled ❌';
   ENROLL_ACTION_TEXT = 'Enroll ?';
   UNROLL_ACTION_TEXT = 'Unroll ?';
 

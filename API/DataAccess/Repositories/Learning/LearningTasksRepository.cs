@@ -60,7 +60,7 @@ namespace API.DataAccess.Repositories.Learning
             }
         }
 
-        public async Task<LearningTaskDto> CreateLearningTask(LearningTaskDto learningTaskDto, int studentId)
+        public async Task<LearningTaskMinDto> CreateLearningTask(LearningTaskMinDto learningTaskDto, int studentId)
         {
             var newLearningTask = _mapper.Map<LearningTask>(learningTaskDto);
 
@@ -70,15 +70,23 @@ namespace API.DataAccess.Repositories.Learning
 
             if(await _context.SaveChangesAsync() <= 0) throw new InternalServerException("Failed to create new learning task");
 
-            return _mapper.Map<LearningTaskDto>(newLearningTask);
+            return _mapper.Map<LearningTaskMinDto>(newLearningTask);
         }
 
-        public async Task<IEnumerable<LearningTaskDto>> GetLearningTasks(int studentId)
+        public async Task<IEnumerable<LearningTaskMinDto>> GetLearningTasks(int studentId)
         {
             return await _context.LearningTasks
                 .Where(lt => lt.StudentId == studentId)
-                .ProjectTo<LearningTaskDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<LearningTaskMinDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();          
+        }
+
+        public async Task<LearningTaskDto> GetLearningTaskWithLectures(int learningTaskId)
+        {
+            return await _context.LearningTasks
+                .ProjectTo<LearningTaskDto>(_mapper.ConfigurationProvider)
+                .Where(lt => lt.LearningTaskId == learningTaskId)
+                .FirstOrDefaultAsync() ?? throw new NotFoundException($"Did not find task ( id: {learningTaskId})");
         }
 
         public async Task RemoveLearningTask(int learningTaskId)

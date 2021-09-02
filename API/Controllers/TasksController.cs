@@ -30,6 +30,15 @@ namespace API.Controllers
             return Ok(learningTasks);
         }
 
+        [HttpGet("{learningTaskId}")]
+        public async Task<ActionResult<LearningTaskDto>> GetLearningTask(int learningTaskId)
+        {
+            var learningTask = await _unitOfWork.LearningTasksRepository
+                .GetLearningTaskWithLectures(learningTaskId);
+
+            return Ok(learningTask);
+        }
+
         [HttpGet("w/{lectureId}")]
         public async Task<ActionResult<LearningTaskDto>> GetLearningTaskWithLecture(int lectureId)
         {
@@ -79,7 +88,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{learningTaskId}")]
-        public async Task<ActionResult> RemoveLectureFromTask(int learningTaskId)
+        public async Task<ActionResult> RemoveLearningTask(int learningTaskId)
         {
             await _unitOfWork.LearningTasksRepository
                 .RemoveLearningTask(learningTaskId);

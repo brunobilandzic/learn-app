@@ -3,47 +3,81 @@ import { Injectable } from '@angular/core';
 import { of, ReplaySubject } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import {
+  learningTasksSort,
+} from '../_models/help/component-communication';
 import { IdsToId } from '../_models/help/idsToId';
-import { LearningTask } from '../_models/learning-task';
-import { CoursesService } from './courses.service';
+import { LearningTaskMin } from '../_models/learning-task';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LearningTasksService {
   baseApiUrl = environment.baseApiUrl;
-  learningTasksCache: LearningTask [] = [];
+  learningTasksCache: LearningTaskMin[] = [];
   shouldComponentsUpdate = new ReplaySubject<boolean>(1);
   shouldComponentsUpdate$ = this.shouldComponentsUpdate.asObservable();
-  constructor(
-    private http: HttpClient
-  ) { }
-
+  constructor(private http: HttpClient) {}
 
   getTaskWithLectrue(lectureId: number) {
     return this.http.get(this.baseApiUrl + 'tasks/w/' + lectureId);
   }
 
-  getTasks() {
-    if(this.learningTasksCache.length)
-      return of(this.learningTasksCache);
-    
-    return this.http.get(this.baseApiUrl + 'tasks')
-      .pipe(
-        map((response: any) => {
-          this.learningTasksCache = response;
-          return response;
-        })
-      )
+  getTasks(taskListOptions?: any) {
+    if (this.learningTasksCache.length)
+      return of(this.transformTasks(taskListOptions));
+
+    return this.http.get(this.baseApiUrl + 'tasks').pipe(
+      map((response: any) => {
+        this.learningTasksCache = response;
+        return this.transformTasks(taskListOptions);
+      })
+    );
+  }
+
+  getLearningTask(learningTaskId: string) {
+    return this.http.get(this.baseApiUrl + 'tasks/' + learningTaskId);
   }
 
   setLecturesToTask(lectureIdsTaskId: IdsToId) {
-    return this.http.post(this.baseApiUrl + 'tasks/lectures', lectureIdsTaskId)
+    return this.http
+      .post(this.baseApiUrl + 'tasks/lectures', lectureIdsTaskId)
       .pipe(
         finalize(() => {
           this.learningTasksCache = [];
           this.shouldComponentsUpdate.next(true);
         })
-      )
+      );
+  }
+
+  transformTasks(taskListOptions?: any) {
+    if (taskListOptions == null) return this.learningTasksCache;
+    let transformedTaskList = this.learningTasksCache.slice();
+    console.log(transformedTaskList)
+    if (taskListOptions.hidePassed)
+      transformedTaskList = transformedTaskList.filter(
+        (lt) => new Date(new Date(lt.deadlineDate).getTime() +  60 * 60 * 24 * 1000).getTime() >= Date.now()
+      );
+    
+    if(taskListOptions.hideCompleted) {
+      transformedTaskList = transformedTaskList.filter(
+        (lt) => lt.completed == false
+      );
+    }
+    switch (taskListOptions.sortBy) {
+      case learningTasksSort.importance:
+        transformedTaskList.sort((a: LearningTaskMin, b: LearningTaskMin) => {
+          return a.importance < b.importance ? 1 : -1;
+        });
+        break;
+      case learningTasksSort.deadlineDate: 
+        transformedTaskList.sort((a: LearningTaskMin, b: LearningTaskMin) => {
+          return a.deadlineDate > b.deadlineDate
+            ? 1
+            : -1;
+        })
+    }
+    
+    return transformedTaskList;
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { IdsToId } from 'src/app/_models/help/idsToId';
-import { LearningTask } from 'src/app/_models/learning-task';
+import { LearningTask, LearningTaskMin } from 'src/app/_models/learning-task';
 import { LearningTasksService } from 'src/app/_services/learning-tasks.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class SetTaskModalComponent implements OnInit {
   lectureId: number;
   title: string;
   saveBtnText: string;
-  learningTasks: LearningTask[];
+  learningTasks: LearningTaskMin[];
   selectedLearningTaskId: number = 0;
   constructor(
     public bsModalRef: BsModalRef,
@@ -26,12 +26,7 @@ export class SetTaskModalComponent implements OnInit {
 
   getLearningTasks() {
     this.learningTasksService.getTasks().subscribe((learningTasks: any) => {
-      this.learningTasks = learningTasks.filter(
-        (lt: any) =>
-          lt.lectures.filter((l: any) => l.lectureId == this.lectureId)
-            .length == 0
-      );
-      console.log(this.learningTasks)
+      this.learningTasks = learningTasks;
     });
   }
 

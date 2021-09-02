@@ -1,9 +1,14 @@
-export interface LearningTask {
+export interface LearningTask extends LearningTaskMin {
+    lectures: any [];
+}
+
+export interface LearningTaskMin {
     tag: string;
     learningTaskId: number;
     studentId: number;
     importance: number;
     completed: boolean;
     deadlineDate: Date;
-    lectures: any [];
+    completedLecturesCount: number;
+    lecturesCount: number; 
 }

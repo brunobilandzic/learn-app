@@ -9,6 +9,7 @@ import { Lecture } from 'src/app/_models/lecture';
 export class LectureItemComponent implements OnInit {
   @Input() lecture: Lecture;
   @Input() isEnrolled: boolean = false;
+  @Input() lectureType: string;
   constructor() { }
 
   ngOnInit(): void {

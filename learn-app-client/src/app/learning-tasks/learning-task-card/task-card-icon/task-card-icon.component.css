@@ -1,0 +1,20 @@
+.completed.icon {
+    color: #28a745;
+}
+
+.deadline-passed.icon {
+    color: #dc3545;
+}
+
+.deadline-warning.icon {
+    color: #ffc107;
+}
+
+.deadline-comfy.icon {
+    color: #007bff;
+}
+
+.icon {
+    font-weight: bold;
+    font-size: 0.7rem;
+}
