@@ -1,8 +1,13 @@
-<div  class="row mx-0 lecture-row">
-    <div class="col-7 lecture-info-wrap">
-        <app-lecture-info-read [lecture]="lecture"></app-lecture-info-read>
-    </div>
-    <div class="col-5 lecture-task-wrap">
-        <app-lecture-task-resolve [lectureType]="lectureType" [lectureId]="lecture?.lectureId"></app-lecture-task-resolve>
-    </div>
+<div class="row mx-0 lecture-row">
+  <div class="col-7 lecture-info-wrap">
+    <app-lecture-info-read [lecture]="lecture"></app-lecture-info-read>
+  </div>
+  <div class="col-5 lecture-task-wrap">
+    <app-lecture-task-resolve
+      [lectureType]="lectureType"
+      [lectureId]="lecture?.lectureId"
+      [learningTaskParent]="learningTaskParent"
+      [removeLecture]="removeLecture"
+    ></app-lecture-task-resolve>
+  </div>
 </div>

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { IdsToId } from 'src/app/_models/help/idsToId';
+import { IdsToId } from 'src/app/_models/help/ids-to-id';
 import { LearningTask, LearningTaskMin } from 'src/app/_models/learning-task';
 import { LearningTasksService } from 'src/app/_services/learning-tasks.service';
 
@@ -15,6 +15,7 @@ export class SetTaskModalComponent implements OnInit {
   saveBtnText: string;
   learningTasks: LearningTaskMin[];
   selectedLearningTaskId: number = 0;
+  removeLecture: EventEmitter<number>;
   constructor(
     public bsModalRef: BsModalRef,
     private learningTasksService: LearningTasksService
@@ -38,7 +39,7 @@ export class SetTaskModalComponent implements OnInit {
       this.learningTasksService.setLecturesToTask(lectureIdsToId)
         .subscribe(() => {
           this.bsModalRef.hide();
-          
+          this.removeLecture.emit(this.lectureId)
         })
   }
 }

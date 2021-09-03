@@ -34,16 +34,16 @@ namespace API.Controllers
         public async Task<ActionResult<LearningTaskDto>> GetLearningTask(int learningTaskId)
         {
             var learningTask = await _unitOfWork.LearningTasksRepository
-                .GetLearningTaskWithLectures(learningTaskId);
+                .GetLearningTaskWithLectures(learningTaskId, User.GetUserId());
 
             return Ok(learningTask);
         }
 
         [HttpGet("w/{lectureId}")]
-        public async Task<ActionResult<LearningTaskDto>> GetLearningTaskWithLecture(int lectureId)
+        public async Task<ActionResult<LearningTaskMinDto>> GetLearningTaskWithLecture(int lectureId)
         {
             var learningTask = await _unitOfWork.LearningTasksRepository
-                .TaskForLecture(lectureId);
+                .TaskForLecture(lectureId, User.GetUserId());
 
             return Ok(learningTask);
         }

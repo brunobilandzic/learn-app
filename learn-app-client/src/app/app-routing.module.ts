@@ -33,7 +33,9 @@ const routes: Routes = [
       {
         path: 'learning-tasks/:id',
         component: LearningTaskViewComponent,
-        resolve: LearningTasksResolver
+        resolve: {
+          learningTask: LearningTasksResolver
+        }
       }
     ],
   },

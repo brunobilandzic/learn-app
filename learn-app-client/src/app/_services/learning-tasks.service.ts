@@ -6,7 +6,8 @@ import { environment } from 'src/environments/environment';
 import {
   learningTasksSort,
 } from '../_models/help/component-communication';
-import { IdsToId } from '../_models/help/idsToId';
+import { IdToId } from '../_models/help/id-to-id';
+import { IdsToId } from '../_models/help/ids-to-id';
 import { LearningTaskMin } from '../_models/learning-task';
 
 @Injectable({
@@ -48,6 +49,16 @@ export class LearningTasksService {
           this.shouldComponentsUpdate.next(true);
         })
       );
+  }
+
+  toggleCompleteLecture(lectureId: number, learningTaskId: number) {
+    let lectureIdLearningTaskId:  IdToId = {
+      firstId: lectureId,
+      secondId: learningTaskId
+    }
+
+    this.http.post(this.baseApiUrl + 'tasks/lecture-completion', lectureIdLearningTaskId)
+      .subscribe(() => this.shouldComponentsUpdate.next(true));
   }
 
   transformTasks(taskListOptions?: any) {

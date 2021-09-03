@@ -29,6 +29,8 @@ namespace API.DataAccess.Repositories.Learning
 
         public async Task AddLecturesToLearningTask(IdsToId lecturesToTask, int studentId)
         { 
+            var learningTask = await _context.LearningTasks.FindAsync(lecturesToTask.Id);
+            if(learningTask.StudentId != studentId) throw new AppException(HttpStatusCode.Unauthorized, "Task does not belong to user.");
             foreach (var id in lecturesToTask.Ids)
             {
                 var newLectureLearningTask = new LectureLearningTask
@@ -40,6 +42,7 @@ namespace API.DataAccess.Repositories.Learning
                     .Where(lt => lt.StudentId == studentId)
                     .SelectMany(lt => lt.LectureLearningTasks.Where(llt => llt.LectureId == id))
                     .ToListAsync();
+                
 
                 _context.LectureLearningTasks.RemoveRange(lectureLearningTasksToDelete);
                 await _context.LectureLearningTasks.AddAsync(newLectureLearningTask);
@@ -81,12 +84,17 @@ namespace API.DataAccess.Repositories.Learning
                 .ToListAsync();          
         }
 
-        public async Task<LearningTaskDto> GetLearningTaskWithLectures(int learningTaskId)
+        public async Task<LearningTaskDto> GetLearningTaskWithLectures(int learningTaskId, int studentId)
         {
-            return await _context.LearningTasks
-                .ProjectTo<LearningTaskDto>(_mapper.ConfigurationProvider)
+            var learningTask = await _context.LearningTasks
+                .Include(lt => lt.LectureLearningTasks)
                 .Where(lt => lt.LearningTaskId == learningTaskId)
                 .FirstOrDefaultAsync() ?? throw new NotFoundException($"Did not find task ( id: {learningTaskId})");
+            
+            if(learningTask.StudentId != studentId) throw new AppException(HttpStatusCode.Unauthorized, "Task does not belong to user.");
+
+            return _mapper.Map<LearningTaskDto>(learningTask);
+            
         }
 
         public async Task RemoveLearningTask(int learningTaskId)
@@ -113,11 +121,11 @@ namespace API.DataAccess.Repositories.Learning
             _context.LectureLearningTasks.Remove(lectureLearningTask);
         }
 
-        public async Task<LearningTaskDto> TaskForLecture(int lectureId)
+        public async Task<LearningTaskMinDto> TaskForLecture(int lectureId, int studentId)
         {
             return await _context.LearningTasks
-                .Where(lt => lt.LectureLearningTasks.Select(llt => llt.LectureId).Contains(lectureId))
-                .ProjectTo<LearningTaskDto>(_mapper.ConfigurationProvider)
+                .Where(lt => lt.StudentId == studentId &&  lt.LectureLearningTasks.Select(llt => llt.LectureId).Contains(lectureId))
+                .ProjectTo<LearningTaskMinDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
         }
         

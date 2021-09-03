@@ -1,8 +1,8 @@
 <div class="lecture-task-wrap d-flex justify-content-end">
   <div
-    *ngIf="isInTask"
+    *ngIf="isInTask && lectureType != LEARNING_TASK_LECTURES; else elseTemplate"
     class="task-info d-flex align-items-center px-2 rounded"
-    [class.completed]="learningTask.completed"
+    [class.completed]="learningTask?.completed"
   >
     <div>
       {{
@@ -11,8 +11,26 @@
       }}
     </div>
   </div>
+  <ng-template #elseTemplate>
+    <div *ngIf="lectureType == LEARNING_TASK_LECTURES">
+      <input
+        type="checkbox"
+        [name]="lectureId"
+        [checked]="lectureLearningTask.completed"
+        class="form-check-input"
+        (change)="lectureLearningTaskCompletionChange($event)"
+      />
+      <label class="form-check-label ms-2 me-3">
+        {{ getCheckboxLabel() }}
+      </label>
+    </div>
+  </ng-template>
+
   <div class="move-to-add ms-2">
-    <button (click)="openSetTaskModal()" class="btn btn-primary btn-sm task-btn">
+    <button
+      (click)="openSetTaskModal()"
+      class="btn btn-primary btn-sm task-btn"
+    >
       {{ isInTask ? "Move" : "Add" }}
     </button>
   </div>

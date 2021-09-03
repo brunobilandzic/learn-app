@@ -7,7 +7,9 @@
       <app-lecture-item class="list-group-item" [app-lecture-item]
         [lecture]="lecture"
         [isEnrolled]="isEnrolled"
-        [lecturesType]="lecturesType"
+        [lectureType]="lecturesType"
+        [learningTaskParent]="learningTaskParent"
+        (removeLecture)="hideLectureFromList(lecture.lectureId)"
       ></app-lecture-item>
     </ng-container>
   </ul>

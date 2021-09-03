@@ -11,10 +11,10 @@ namespace API.DataAccess.Repositories.Learning
         Task<LearningTaskMinDto> CreateLearningTask(LearningTaskMinDto learningTaskDto, int studentId);
         Task AddLecturesToLearningTask(IdsToId lecturesToTask, int studentId);
         Task ToggleLectureCompletion(int lectureId, int learningTaskId);
-        Task<LearningTaskDto> GetLearningTaskWithLectures(int learningTaskId);
+        Task<LearningTaskDto> GetLearningTaskWithLectures(int learningTaskId, int studentId);
         Task CompleteWholeLearningTask(int learningTaskId);
         Task RemoveLectureFromTask(IdToId lectureTaskIds);
-        Task<LearningTaskDto> TaskForLecture(int lectureId);
+        Task<LearningTaskMinDto> TaskForLecture(int lectureId, int studentId);
         Task RemoveLearningTask(int learningTaskId);
     }
 }
